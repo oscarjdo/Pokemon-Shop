@@ -1,0 +1,59 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* NAVBAR */
+.navbar{
+    height: 8vh;
+}
+
+/* CTN LIST CART */
+
+.ctn-list-cart-h{
+    height: 388px;
+}
+
+.ctn-size{
+    height: max-content;
+}
+
+#ctn-list-cart{
+    background-color: #eee;
+}
+
+#cart-empty{
+    display: flex;
+    font-weight: 500;
+    font-size: 30px;
+    color: rgb(86, 86, 86);
+}
+
+@media (min-width: 1000px){
+    #ctn-list{
+        width: 60%;
+    }
+}
+
+@media (min-width: 768px) {
+    #ctn-list-cart{
+        max-height: 74.3vh;
+        overflow-y: scroll;
+    }
+}
+
+
+
+@media (max-width: 767.98px) {
+    #ctn-list-cart{
+        height: fit-content;
+    }
+    
+}
+
+.alert{
+    top: -30px;
+    width: 400px;
+    z-index: 600;
+}
