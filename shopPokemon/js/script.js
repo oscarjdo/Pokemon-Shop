@@ -47,9 +47,6 @@ const typeColors = {
     default: '#ffffff44'
 };
 
-// mediaqueryList.addListener( function(EventoMediaQueryList) {
-// });
-
 for(let i = 1; i <= 151; i++){
     generation
     getPokemon(i, generation);
@@ -58,30 +55,30 @@ for(let i = 152; i <= 250; i++){
     generation = secondGeneration;
     getPokemon(i, generation);
 }
-// for(let i = 251; i <= 386; i++){
-//     generation = thirdGeneration;
-//     getPokemon(i, generation);
-// }
-// for(let i = 387; i <= 493; i++){
-//     generation = fourthGeneration;
-//     getPokemon(i, generation);
-// }
-// for(let i = 494; i <= 649; i++){
-//     generation = fifthGeneration;
-//     getPokemon(i, generation);
-// }
-// for(let i = 650; i <= 721; i++){
-//     generation = sixthGeneration;
-//     getPokemon(i, generation);
-// }
-// for(let i = 722; i <= 809; i++){
-//     generation = seventhGeneration;
-//     getPokemon(i, generation);
-// }
-// for(let i = 810; i <= 898; i++){
-//     generation = eighthGeneration;
-//     getPokemon(i, generation);
-// }
+for(let i = 251; i <= 386; i++){
+    generation = thirdGeneration;
+    getPokemon(i, generation);
+}
+for(let i = 387; i <= 493; i++){
+    generation = fourthGeneration;
+    getPokemon(i, generation);
+}
+for(let i = 494; i <= 649; i++){
+    generation = fifthGeneration;
+    getPokemon(i, generation);
+}
+for(let i = 650; i <= 721; i++){
+    generation = sixthGeneration;
+    getPokemon(i, generation);
+}
+for(let i = 722; i <= 809; i++){
+    generation = seventhGeneration;
+    getPokemon(i, generation);
+}
+for(let i = 810; i <= 898; i++){
+    generation = eighthGeneration;
+    getPokemon(i, generation);
+}
 
 async function getPokemon(num, gen){
     let url = `https://pokeapi.co/api/v2/pokemon/${num.toString()}`;
@@ -108,11 +105,11 @@ async function getPokemon(num, gen){
     labelCtn.setAttribute('for',`checkbox${num}`);
     
     let fragment = document.createDocumentFragment();
-    labelCtn.classList.add('col-4', 'col-md-3', 'col-lg-2', 'border', 'border-1', 'bg-white', 'p-2', 'text-center');
+    labelCtn.classList.add('col-4', 'col-md-3', 'col-lg-2', 'border', 'border-1', 'bg-white', 'p-2', 'text-center', 'position-relative');
     imgCtn.classList.add('d-flex', 'flex-row-reverse');
     imgBg.classList.add('rounded-pill', 'm-auto');
     imgBg.style.width = 'fit-content';
-    inputCheck.classList.add('position-absolute');
+    inputCheck.classList.add('checkbox-pokedex');
     gen.classList.add('row');
     gen.style.cssText = 'list-style: none;';
 
