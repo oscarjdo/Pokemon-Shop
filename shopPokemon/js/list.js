@@ -65,7 +65,7 @@ if(ctnList.hasChildNodes){
 
 const generateLayout=(ctn, imgCtn, nameCtn, idCtn)=>{
     let fragment = document.createDocumentFragment();
-    ctn.classList.add('col', 'border', 'border-1', 'bg-white', 'p-0', 'text-center');
+    ctn.classList.add('col-4', 'col-md-3', 'border', 'border-1', 'bg-white', 'p-0', 'text-center', 'm-0');
     imgCtn.classList.add('border');
     nameCtn.classList.add('border');
     idCtn.classList.add('border');
@@ -73,11 +73,11 @@ const generateLayout=(ctn, imgCtn, nameCtn, idCtn)=>{
     ctn.classList.add('ctn-size');
     ctn.style.cssText = `min-width: 140px;`;
 
-    ctn.appendChild(imgCtn);
-    ctn.appendChild(nameCtn);
-    ctn.appendChild(idCtn);
-    fragment.appendChild(ctn);
-    ctnList.appendChild(fragment);
+    ctn.append(imgCtn);
+    ctn.append(nameCtn);
+    ctn.append(idCtn);
+    fragment.append(ctn);
+    ctnList.append(fragment);
 }
 
 const setSprite=(sprite, imgCtn)=>{
@@ -87,7 +87,7 @@ const setSprite=(sprite, imgCtn)=>{
 
     img.style.cssText = `width: 100px`;
 
-    imgCtn.appendChild(img);
+    imgCtn.append(img);
 }
 
 const buyStuff=()=>{

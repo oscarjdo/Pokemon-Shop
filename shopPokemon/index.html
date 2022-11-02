@@ -24,51 +24,115 @@
     <title>Shop Pokemon</title>
 </head>
 <body>
-    <span id="bg-black"></span>
-    <!-- SEARCH BAR -->
-    <span id="navbar-space"></span>
-    <nav  class="navbar text-white bg-danger d-flex flex-nowrap justify-content-between px-4">
-        <div class="container p-0 w-25">
-            <h1 id="title-page" class="px-2 py-1 m-0">Pokemon List</h1>
-        </div>
-        <div class="container-fluid">
-            <form id="form" class="d-flex w-75" onsubmit="searchPokemon(event)">
-                <input id="inputSearch" class="form-control me-2" name="pokemon" type="search" placeholder="Search pokemon" aria-label="Search" autocomplete="off" autofocus>
-            </form>
-        </div>
-        <button class="border-0 rounded btn-danger" onclick="document.location.href = 'list.html'"><i class="fa-solid fa-xl fa-cart-shopping w-100 h-100 text-white d-flex align-items-center"></i></button>
-    </nav>
-    
-    <!-- SHOP SECTION  -->
-    <div id="pokedex" class="container-fluid mt-4">
+  <span id="bg-black"></span>
+  <!-- SEARCH BAR -->
+  <span id="navbar-space"></span>
+  <nav  class="navbar text-white bg-danger d-flex flex-nowrap justify-content-between px-4">
+      <div class="container p-0 w-25">
+          <h1 id="title-page" class="px-2 py-1 m-0">Pokemon List</h1>
+      </div>
+      <div class="container-fluid">
+          <form id="form" class="d-flex w-75" onsubmit="searchPokemon(event)">
+              <input id="inputSearch" class="form-control me-2" name="pokemon" type="search" placeholder="Search pokemon" aria-label="Search" autocomplete="off" autofocus>
+          </form>
+      </div>
+      <button class="border-0 rounded btn-danger" onclick="document.location.href = 'list.html'"><i class="fa-solid fa-xl fa-cart-shopping w-100 h-100 text-white d-flex align-items-center"></i></button>
+  </nav>
+  
+  <!-- SHOP SECTION  -->
+  <div id="ctn-shop-section" class="container-fluid mt-4" hidden="true">
+      <div id="ctn-list-shop" class="row h-100 p-0 border border-dark border-2 rounded-3 m-auto">
+          <div id="listEmpty" class="align-items-center justify-content-center h-100">
+          </div>
+      </div>
+  </div>
+  <div id="ctn-shop-bttns" class="row w-100" hidden="true">
+      <button id="bttnAddToCart" class="btn btn-primary col-4 m-auto mt-4 btn-danger" type="button">Add to cart</button>
+      <button id="bttnClearList" class="btn btn-primary col-4 m-auto mt-4 btn-warning" type="button">Clear list</button>
+  </div>
+  <div id="pokedex" class="container mt-4">
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace dropdown-toggle w-100" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        First Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+        <ul id="first-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Second Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="second-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Third Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="third-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Fourth Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="fourth-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Fifth Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="fifth-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Sixth Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="sixth-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Seventh Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center bg-warni-labelledby="dropdownMenuClickableInside">
+        <ul id="seventh-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-outline-danger mb-2 fw-bolder font-monospace w-100 dropdown-toggle" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" onclick="sendListPokemon(event)">
+        Eighth Generation
+      </button>
+      <div class="dropdown-menu w-100 p-0 text-center" aria-labelledby="dropdownMenuClickableInside">
+          <ul id="eighth-generation" class="dropdown-list w-100 p-0 m-0 row"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <button type="button" class="btn btn-danger" onclick="addPokemons()">Add Pokemons</button>
+  </div>
 
-    </div>
-
-    <div id="ctn-shop-section" class="container-fluid mt-4" hidden="true">
-        <div id="ctn-list-shop" class="row h-100 p-0 border border-dark border-2 rounded-3 m-auto">
-            <div id="listEmpty" class="align-items-center justify-content-center h-100">  
-            </div>
-        </div>
-    </div>
-    <div id="ctn-shop-bttns" class="row w-100" hidden="true">
-        <button id="bttnAddToCart" class="btn btn-primary col-4 m-auto mt-4 btn-danger" type="button">Add to cart</button>
-        <button id="bttnClearList" class="btn btn-primary col-4 m-auto mt-4 btn-warning" type="button">Clear list</button>
-    </div>
-
-    <div id="alert-error" class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle alert-dismissible fade" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        <div>
-            Pokemon Not Found
-        </div>
-    </div>
-    <div id="alert-no-pokemon" class="alert alert-warning d-flex align-items-center position-absolute start-50 translate-middle alert-dismissible fade" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        <div>
-            There are no pokemons to add to cart
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+  <div id="alert-error" class="alert alert-danger d-flex align-items-center position-absolute start-50 translate-middle alert-dismissible fade" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+          Pokemon Not Found
+      </div>
+  </div>
+  <div id="alert-no-pokemon" class="alert alert-warning d-flex align-items-center position-absolute start-50 translate-middle alert-dismissible fade" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+          There are no pokemons to add to cart
+      </div>
+  </div>
+  <script src="js/script.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>
 </body>
 </html>
