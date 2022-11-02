@@ -2,7 +2,6 @@ let pokedexCtn = document.getElementById("pokedex");
 let ctnShopSection = document.getElementById("ctn-shop-section");
 let ctnShopBttns = document.getElementById("ctn-shop-bttns");
 let ctnList = document.getElementById("ctn-list-shop");
-let listEmpty = document.getElementById("listEmpty");
 let form = document.getElementById("form");
 let inputSearch = document.getElementById("inputSearch");
 let bgBlack = document.getElementById("bg-black");
@@ -10,8 +9,22 @@ let addBttn = document.getElementById("bttnAddToCart");
 let clearBttn = document.getElementById("bttnClearList");
 let alerError = document.getElementById('alert-error');
 let alertNoPokemon = document.getElementById("alert-no-pokemon");
+let pokemonGeneration = '';
 let editMode = false;
+let addToListMode = false;
 let listToAdd = [];
+let listToAddToPokedex = [];
+let mediaqueryList = window.matchMedia("(max-width: 767.98px)");
+let generationCtn = document.getElementById("pokedex-ctn-div");
+let firstGeneration = document.getElementById('first-generation');
+let secondGeneration = document.getElementById('second-generation');
+let thirdGeneration = document.getElementById('third-generation');
+let fourthGeneration = document.getElementById('fourth-generation');
+let fifthGeneration = document.getElementById('fifth-generation');
+let sixthGeneration = document.getElementById('sixth-generation');
+let seventhGeneration = document.getElementById('seventh-generation');
+let eighthGeneration = document.getElementById('eighth-generation');
+let generation = firstGeneration;
 const typeColors = {
     electric: '#FFEA70',
     normal: '#B09398',
@@ -31,17 +44,129 @@ const typeColors = {
     fighting: '#2F2F2F',
     fairy: '#f53eff',
     dark: '#242424',
-    default: '#ffffff33'
+    default: '#ffffff44'
 };
 
+// mediaqueryList.addListener( function(EventoMediaQueryList) {
+// });
+
+for(let i = 1; i <= 151; i++){
+    generation
+    getPokemon(i, generation);
+}
+for(let i = 152; i <= 250; i++){
+    generation = secondGeneration;
+    getPokemon(i, generation);
+}
+// for(let i = 251; i <= 386; i++){
+//     generation = thirdGeneration;
+//     getPokemon(i, generation);
+// }
+// for(let i = 387; i <= 493; i++){
+//     generation = fourthGeneration;
+//     getPokemon(i, generation);
+// }
+// for(let i = 494; i <= 649; i++){
+//     generation = fifthGeneration;
+//     getPokemon(i, generation);
+// }
+// for(let i = 650; i <= 721; i++){
+//     generation = sixthGeneration;
+//     getPokemon(i, generation);
+// }
+// for(let i = 722; i <= 809; i++){
+//     generation = seventhGeneration;
+//     getPokemon(i, generation);
+// }
+// for(let i = 810; i <= 898; i++){
+//     generation = eighthGeneration;
+//     getPokemon(i, generation);
+// }
+
+async function getPokemon(num, gen){
+    let url = `https://pokeapi.co/api/v2/pokemon/${num.toString()}`;
+    let res = await fetch(url);
+    let pokemon = await res.json();
+
+    let pokemonName = pokemon["name"];
+    let pokemonTypes = pokemon["types"]
+    let pokemonImg = pokemon["sprites"]["front_default"];
+    let pokemonId = pokemon["id"];
+
+    let labelCtn = document.createElement('label');
+    let imgCtn = document.createElement('div');
+    let imgBg = document.createElement('div');
+    let nameCtn = document.createElement('div');
+    let idCtn = document.createElement('div');
+    let inputCheck = document.createElement('input');
+    
+    nameCtn.innerHTML = `<h6>${pokemonName[0].toUpperCase() + pokemonName.substring(1)}</h6>`;
+    idCtn.innerHTML = `<h5>#${pokemonId.toString().padStart(3,'00')}</h5>`;
+    inputCheck.classList.add('all-checkbox-pokedex');
+    inputCheck.setAttribute('type', 'checkbox');
+    inputCheck.setAttribute('id', `checkbox${num}`);
+    labelCtn.setAttribute('for',`checkbox${num}`);
+    
+    let fragment = document.createDocumentFragment();
+    labelCtn.classList.add('col-4', 'col-md-3', 'col-lg-2', 'border', 'border-1', 'bg-white', 'p-2', 'text-center');
+    imgCtn.classList.add('d-flex', 'flex-row-reverse');
+    imgBg.classList.add('rounded-pill', 'm-auto');
+    imgBg.style.width = 'fit-content';
+    inputCheck.classList.add('position-absolute');
+    gen.classList.add('row');
+    gen.style.cssText = 'list-style: none;';
+
+    nameCtn.firstElementChild.classList.add('p-0', 'm-0');
+    idCtn.firstElementChild.classList.add('p-0', 'm-0');
+    
+    labelCtn.classList.add('ctn-size');
+    labelCtn.style.cssText = `min-width: 140px;`;
+    
+    labelCtn.append(imgCtn);
+    labelCtn.append(nameCtn);
+    labelCtn.append(idCtn);
+    fragment.append(labelCtn);
+    gen.append(fragment);
+    
+    let colorOne = typeColors[pokemonTypes[0].type.name];
+    let colorTwo = pokemonTypes[1] ? typeColors[pokemonTypes[1].type.name] : typeColors.default
+    let img = document.createElement('img');
+    img.setAttribute('src', pokemonImg);
+    img.classList.add('bg-imgs');
+    img.style.cssText = `width: 100px`;
+    imgBg.style.background = colorOne;
+    imgBg.style.background = `radial-gradient(${colorTwo} 33%, ${colorOne} 33%)`;
+    imgBg.style.backgroundSize = `5px 5px`;
+    
+    imgBg.append(img);
+    imgCtn.append(imgBg);
+    imgCtn.append(inputCheck);
+
+}
 
 const searchPokemon =(event)=>{
-    event.preventDefault();
-    let {value} = event.target.pokemon;
-    fetch(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`)
-    .then(data => data.json())
-    .then(res => renderPokemonData(res))
-    .catch(err => pokemonNotFound())
+    if(addToListMode == false){
+        event.preventDefault();
+        let {value} = event.target.pokemon;
+        if(value[0] == '0' && value[1] == '0'){
+            value = value.slice(2);
+        }else if(value[0] == '0'){
+            value = value.slice(1);
+        }
+        fetch(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`)
+        .then(data => data.json())
+        .then(res => renderPokemonData(res))
+        .catch(err => pokemonNotFound())
+    } else if(addToListMode == true){
+        let {value} = '';
+        listToAddToPokedex.forEach(i =>{
+            value = i;
+            fetch(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`)
+            .then(data => data.json())
+            .then(res => renderPokemonData(res))
+            .catch(err => pokemonNotFound())
+        });
+    }
 }
 
 const renderPokemonData=(data)=>{
@@ -81,6 +206,7 @@ const renderPokemonData=(data)=>{
             rowCtn.remove();
             console.clear();
             ctnShopSection.hidden = true;
+            ctnShopBttns.hidden = true;
         });
     } else if(editMode == true){
         document.getElementById('edit-mode-ctn-active').children[1].firstElementChild.innerHTML = `Name:<br> <h6>${data.name[0].toUpperCase() + data.name.substring(1)}</h6>`;
@@ -128,31 +254,22 @@ const sendData=()=>{
 const setSprite=(sprite, colorOne, colorTwo, imgCtn)=>{
     if(editMode == false){
         let img = document.createElement('img');
-        let img2 = document.createElement('img');
         let bgImgCtn = document.createElement('div');
-        let bgImgOne = document.createElement('div');
-        let bgImgTwo = document.createElement('div');
         
         img.setAttribute('src', sprite);
-        img2.setAttribute('src', sprite);
     
-        img.style.cssText = `position: absolute; z-index: 50; top: 0; left: 0; width: 100%`;
-        img2.style.cssText = `opacity: 0; width: 100%;`;
-        bgImgCtn.style.cssText = 'width: fit-content; position: relative; border-radius: 50%; overflow: hidden; width: 100%; border: 2px solid #000';
-        imgCtn.style.position = `relative`;
+        img.style.cssText = `width: 100%`;
+        bgImgCtn.style.cssText = 'width: fit-content; border-radius: 50%; width: 100%; border: 2px solid #000';
+        // imgCtn.style.position = `relative`;
         
-        bgImgOne.style.background = colorOne;
-        bgImgTwo.style.background = `linear-gradient(180deg, transparent 45%, ${colorTwo} 55%)`;
+        bgImgCtn.style.background = `radial-gradient(${colorTwo} 33%, ${colorOne} 33%)`;
+        bgImgCtn.style.backgroundSize = `5px 5px`;
     
-        imgCtn.appendChild(img);
-        bgImgTwo.appendChild(img2);
-        bgImgOne.appendChild(bgImgTwo);
-        bgImgCtn.appendChild(bgImgOne);
+        bgImgCtn.appendChild(img);
         imgCtn.appendChild(bgImgCtn);
     } else {
-        document.getElementById('edit-mode-ctn-active').firstElementChild.firstElementChild.setAttribute('src', sprite);
-        document.getElementById('edit-mode-ctn-active').firstElementChild.lastElementChild.firstElementChild.style.background = colorOne;
-        document.getElementById('edit-mode-ctn-active').firstElementChild.lastElementChild.firstElementChild.firstElementChild.style.background = `linear-gradient(180deg, transparent 45%, ${colorTwo} 55%)`;
+        document.getElementById('edit-mode-ctn-active').firstElementChild.firstElementChild.firstElementChild.setAttribute('src', sprite);
+        document.getElementById('edit-mode-ctn-active').firstElementChild.firstElementChild.style.cssText = `border-radius: 50%; width: 100%; border: 2px solid rgb(0, 0, 0); background: radial-gradient(${colorTwo} 33%, ${colorOne} 33%); background-size: 5px 5px;`;
     }
 }
 
@@ -298,6 +415,7 @@ const setBttns=(bttnEditCtn, bttnDeleteCtn, rowCtn, data)=>{
             console.log('thera are still childrens');
         } else {
             ctnShopSection.hidden = true;
+            ctnShopBttns.hidden = true;
         }
     });
 }
@@ -309,4 +427,25 @@ const pokemonNotFound =()=>{
         alerError.classList.remove('show');
         alerError.style.top = '-30px';
     }, 2000);
+}
+
+const sendListPokemon=(event)=>{
+    if(event.delegateTarget.nextElementSibling){
+        pokedexCtn.appendChild(event.delegateTarget.nextElementSibling);
+    }
+}
+
+const addPokemons=()=>{
+    let checkbox = document.querySelectorAll('.all-checkbox-pokedex');
+    addToListMode = true;
+    checkbox.forEach( i =>{
+        if(i.checked){
+            // console.log(i)
+            // console.log(i.parentElement.nextElementSibling.textContent.toLowerCase());
+            listToAddToPokedex.push(i.parentElement.nextElementSibling.textContent.toLowerCase());
+        }
+    });
+    console.log(listToAddToPokedex);
+    searchPokemon();
+    addToListMode = false;
 }
